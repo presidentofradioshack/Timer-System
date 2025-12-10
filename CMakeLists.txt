@@ -3,4 +3,7 @@ project(timer_system)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(timer_system main.cpp)
+add_executable(timer_system main.cpp
+        StopWatch.h
+        Session.h
+        Lap.h)

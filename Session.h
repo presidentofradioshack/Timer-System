@@ -18,6 +18,16 @@ public:
         last_updated_on_ = std::chrono::steady_clock::now();
     }
 
+    void StartLap() {
+        Lap new_lap;
+    }
+
+    void StopLap() {
+
+    }
+
+
+
     void AddLap(const Lap& new_lap) {
         laps.push_back(new_lap);
         UpdateLastUpdatedTime();
