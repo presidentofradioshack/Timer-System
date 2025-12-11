@@ -4,40 +4,36 @@
 
 #ifndef TIMER_SYSTEM_SESSION_H
 #define TIMER_SYSTEM_SESSION_H
-#include <iostream>
 #include <chrono>
+#include <iostream>
+
 #include "Lap.h"
 
-struct Session {
-public:
-    Session() : created_on_{std::chrono::steady_clock::now()}, last_updated_on_{created_on_} {
-        std::cout << "Creating session!\n";
-    }
+class Session {
+ public:
+  Session()
+      : created_on_{std::chrono::steady_clock::now()},
+        last_updated_on_{created_on_} {
+    std::cout << "Creating session!\n";
+  }
 
-    void UpdateLastUpdatedTime() {
-        last_updated_on_ = std::chrono::steady_clock::now();
-    }
+  void UpdateLastUpdatedTime() {
+    last_updated_on_ = std::chrono::steady_clock::now();
+  }
 
-    void StartLap() {
-        Lap new_lap;
-    }
+  Lap* GetCurrentLap();
 
-    void StopLap() {
+  Lap* AddLap();
 
-    }
+  std::size_t GetLapCount() const { return laps.size(); }
 
+  void ClearLaps();
 
-
-    void AddLap(const Lap& new_lap) {
-        laps.push_back(new_lap);
-        UpdateLastUpdatedTime();
-    }
-
-private:
-    std::string name;
-    std::vector<Lap> laps;
-    std::chrono::time_point<std::chrono::steady_clock> created_on_;
-    std::chrono::time_point<std::chrono::steady_clock> last_updated_on_;
+ private:
+  std::string name;
+  std::vector<Lap> laps;
+  std::chrono::time_point<std::chrono::steady_clock> created_on_;
+  std::chrono::time_point<std::chrono::steady_clock> last_updated_on_;
 };
 
-#endif // TIMER_SYSTEM_SESSION_H
+#endif  // TIMER_SYSTEM_SESSION_H

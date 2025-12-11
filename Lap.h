@@ -5,59 +5,45 @@
 #ifndef TIMER_SYSTEM_LAP_H
 #define TIMER_SYSTEM_LAP_H
 
-#include <iostream>
 #include <chrono>
+#include <iostream>
 
 using namespace std::chrono_literals;
 
-struct Lap {
-    using Clock = std::chrono::steady_clock;
-    using TimePoint = std::chrono::time_point<Clock>;
-    using Milliseconds = std::chrono::milliseconds;
+class Lap {
+  using Clock = std::chrono::steady_clock;
+  using TimePoint = std::chrono::time_point<Clock>;
+  using Milliseconds = std::chrono::milliseconds;
 
-public:
-    Lap() {
-        std::cout << "Starting new lap\n";
-    }
+ public:
+  Lap() { std::cout << "Starting new lap\n"; }
 
-    Start() {
-        if ( is_running_ ) return;
+  void Start();
 
-        start_time_ = Clock::now();
-        is_running_ = true;
-    }
+  void Stop();
 
-    Stop() {
-        if ( !is_running_ ) return;
+  void Resume();
 
-        end_time_ = Clock::now();
-        is_running_ = false;
-    }
+  [[nodiscard]]
+  bool IsRunning() const {
+    return is_running_;
+  }
 
-    bool IsRunning() {
-        return is_running_;
-    }
+  [[nodiscard]]
+  bool IsCompleted() const {
+    return is_completed_;
+  }
 
-    bool IsCompleted() {
-        return is_completed_;
-    }
+  [[nodiscard]]
+  Milliseconds GetTimeElapsed() const;
 
-     Milliseconds GetTimeElapsed() {
-        if ( is_running_ ) {
-            return std::chrono::duration_cast<Milliseconds>(Clock::now() - start_time_);
-        } else if ( !is_running_ ) {
-            return std::chrono::duration_cast<Milliseconds>(end_time_ - start_time_);
-        } else {
-            return 0ms;
-        }
-     }
+  std::string FormatTime(TimePoint& time_point);
 
-private:
-    TimePoint start_time_;
-    TimePoint end_time_;
-    bool is_running_{false};
-    bool is_completed_{false};
+ private:
+  TimePoint start_time_;
+  TimePoint end_time_;
+  bool is_running_{false};
+  bool is_completed_{false};
 };
 
-
-#endif // TIMER_SYSTEM_LAP_H
+#endif  // TIMER_SYSTEM_LAP_H

@@ -6,4 +6,16 @@ set(CMAKE_CXX_STANDARD 23)
 add_executable(timer_system main.cpp
         StopWatch.h
         Session.h
-        Lap.h)
+        Lap.h
+        Lap.cpp
+        Session.cpp
+        StopWatch.cpp
+        Event.h
+        InputSource.cpp
+        InputSource.h
+        TerminalInput.cpp
+        TerminalInput.h
+        Renderer.cpp
+        Renderer.h
+        TerminalRenderer.cpp
+        TerminalRenderer.h)

@@ -5,43 +5,32 @@
 #ifndef TIMER_SYSTEM_STOPWATCH_H
 #define TIMER_SYSTEM_STOPWATCH_H
 #include <iostream>
+
+#include "Event.h"
 #include "Session.h"
 
+enum State { STOPPED, RUNNING };
+
 class StopWatch {
-public:
-    StopWatch() {
-        std::cout << "Booting up stopwatch\n";
-    }
+ public:
+  StopWatch() { std::cout << "Booting up stopwatch\n"; }
 
-    void Start() {
-        if ( current_session_ ) {
-            std::cout << "Current session already exists!\n";
-            return;
-        }
+  void HandleEvent(const Event& e);
 
-        Session session;
-        current_session_ = session;
-    }
+  void Start();
 
-    void Pause() {
-        if ( !current_session_ ) {
-            std::cout << "No current session to pause\n";
-            return;
-        }
+  void Resume();
 
-        current_session_
-    }
+  void Reset();
 
-    void Resume() {}
+  void Stop();
 
-    void Stop() {}
+  void NewLap();
 
-    void Lap() {}
-
-private:
-    std::vector<Session*> sessions_;
-    Session& current_session_;
+ private:
+  std::vector<Session*> sessions_;
+  Session current_session_;
+  State current_state_{State::STOPPED};
 };
 
-
-#endif // TIMER_SYSTEM_STOPWATCH_H
+#endif  // TIMER_SYSTEM_STOPWATCH_H
