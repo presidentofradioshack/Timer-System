@@ -45,10 +45,11 @@ class Lap {
   int index_;
   TimePoint start_time_;
   TimePoint end_time_;
-  Milliseconds total_time_elapsed_;
+  Milliseconds total_time_elapsed_{0ms};
   bool is_running_{false};
   bool is_completed_{false};
-  Milliseconds GetTimeElapsed(TimePoint& end, TimePoint& start) const;
+  Milliseconds GetTimeElapsed(const TimePoint& end,
+                              const TimePoint& start) const;
 };
 
 #endif  // TIMER_SYSTEM_LAP_H

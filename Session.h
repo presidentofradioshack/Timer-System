@@ -27,6 +27,8 @@ class Session {
 
   Lap* AddLap();
 
+  void ResetLap();
+
   [[nodiscard]]
   std::size_t GetLapCount() const {
     return laps.size();

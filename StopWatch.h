@@ -19,8 +19,6 @@ class StopWatch {
 
   void Start();
 
-  void Resume();
-
   void Reset();
 
   void Stop();

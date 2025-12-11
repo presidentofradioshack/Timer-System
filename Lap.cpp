@@ -30,12 +30,14 @@ void Lap::Stop() {
 }
 
 void Lap::Reset() {
-  total_time_elapsed_ = 0ms;
-
   is_running_ = false;
+  total_time_elapsed_ = Milliseconds::zero();
+  start_time_ = TimePoint{};
+  end_time_ = TimePoint{};
 }
 
-Milliseconds Lap::GetTimeElapsed(TimePoint& end, TimePoint& start) const {
+Milliseconds Lap::GetTimeElapsed(const TimePoint& end,
+                                 const TimePoint& start) const {
   if (is_running_) {
     return std::chrono::duration_cast<Milliseconds>(Clock::now() - start);
   } else {
