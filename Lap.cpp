@@ -29,10 +29,20 @@ void Lap::Stop() {
   is_running_ = false;
 }
 
+void Lap::Reset() {
+  total_time_elapsed_ = 0ms;
+
+  is_running_ = false;
+}
+
 Milliseconds Lap::GetTimeElapsed(TimePoint& end, TimePoint& start) const {
-  return std::chrono::duration_cast<Milliseconds>(end - start);
+  if (is_running_) {
+    return std::chrono::duration_cast<Milliseconds>(Clock::now() - start);
+  } else {
+    return std::chrono::duration_cast<Milliseconds>(end - start);
+  }
 }
 
 std::string Lap::GetTotalTimeElapsed() const {
-  return std::format("{:%H:%M:%S}", total_time_elapsed_);
+  return std::format("{:%M:%S}", total_time_elapsed_);
 }

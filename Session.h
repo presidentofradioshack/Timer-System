@@ -23,9 +23,14 @@ class Session {
 
   Lap* GetCurrentLap();
 
+  void DisplayLapInfo() const;
+
   Lap* AddLap();
 
-  std::size_t GetLapCount() const { return laps.size(); }
+  [[nodiscard]]
+  std::size_t GetLapCount() const {
+    return laps.size();
+  }
 
   void ClearLaps();
 

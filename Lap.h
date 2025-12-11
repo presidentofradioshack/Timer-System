@@ -16,13 +16,15 @@ class Lap {
   using Milliseconds = std::chrono::milliseconds;
 
  public:
-  Lap() { std::cout << "Starting new lap\n"; }
+  Lap(int index) : index_{index} { std::cout << "Starting new lap\n"; }
 
   void Start();
 
   void Stop();
 
-  void Resume();
+  void Reset();
+
+  int GetIndex() const { return index_; }
 
   [[nodiscard]]
   bool IsRunning() const {
@@ -40,6 +42,7 @@ class Lap {
   std::string FormatTime(TimePoint& time_point);
 
  private:
+  int index_;
   TimePoint start_time_;
   TimePoint end_time_;
   Milliseconds total_time_elapsed_;

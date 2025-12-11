@@ -53,6 +53,8 @@ void StopWatch::Stop() {
   std::cout << "Stopping\n";
   Lap* lap = current_session_.GetCurrentLap();
   lap->Stop();
+
+  current_session_.DisplayLapInfo();
   current_state_ = State::STOPPED;
 }
 
@@ -61,6 +63,9 @@ void StopWatch::NewLap() {
     std::cout << "Stopwatch must be running to lap\n";
     return;
   }
+
+  Lap* lap = current_session_.GetCurrentLap();
+  lap->Stop();
 
   Lap* new_lap = current_session_.AddLap();
   new_lap->Start();
@@ -77,6 +82,8 @@ void StopWatch::Reset() {
     return;
   }
 
+  Lap* lap = current_session_.GetCurrentLap();
+  lap->Reset();
   current_session_.ClearLaps();
   current_state_ = State::STOPPED;
 }
