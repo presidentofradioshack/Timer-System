@@ -35,15 +35,17 @@ class Lap {
   }
 
   [[nodiscard]]
-  Milliseconds GetTimeElapsed() const;
+  std::string GetTotalTimeElapsed() const;
 
   std::string FormatTime(TimePoint& time_point);
 
  private:
   TimePoint start_time_;
   TimePoint end_time_;
+  Milliseconds total_time_elapsed_;
   bool is_running_{false};
   bool is_completed_{false};
+  Milliseconds GetTimeElapsed(TimePoint& end, TimePoint& start) const;
 };
 
 #endif  // TIMER_SYSTEM_LAP_H

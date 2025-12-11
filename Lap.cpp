@@ -18,33 +18,21 @@ void Lap::Start() {
 }
 
 void Lap::Stop() {
-  std::cout << "Lap stopping\n";
   if (!is_running_) return;
-  std::cout << "Lap stopping after return\n";
 
   end_time_ = Clock::now();
 
-  std::chrono::duration<double, std::milli> duration = end_time_ - start_time_;
+  total_time_elapsed_ += GetTimeElapsed(end_time_, start_time_);
 
-  std::cout << "Lap duration: " << duration << "ms\n";
+  std::cout << "Total time elapsed: " << GetTotalTimeElapsed() << std::endl;
 
   is_running_ = false;
 }
 
-void Lap::Resume() {
-  if (is_running_) return;
-
-  std::cout << "Resuming lap\n";
-
-  is_running_ = true;
+Milliseconds Lap::GetTimeElapsed(TimePoint& end, TimePoint& start) const {
+  return std::chrono::duration_cast<Milliseconds>(end - start);
 }
 
-Milliseconds Lap::GetTimeElapsed() const {
-  if (is_running_) {
-    return std::chrono::duration_cast<Milliseconds>(Clock::now() - start_time_);
-  } else if (!is_running_) {
-    return std::chrono::duration_cast<Milliseconds>(end_time_ - start_time_);
-  } else {
-    return 0ms;
-  }
+std::string Lap::GetTotalTimeElapsed() const {
+  return std::format("{:%H:%M:%S}", total_time_elapsed_);
 }
