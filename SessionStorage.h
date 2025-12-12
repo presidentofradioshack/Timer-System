@@ -5,11 +5,15 @@
 #ifndef TIMER_SYSTEM_SESSIONSTORAGE_H
 #define TIMER_SYSTEM_SESSIONSTORAGE_H
 
+#include <chrono>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <system_error>
 
 #include "Session.h"
+#include "Utils/StringUtils.h"
+namespace fs = std::filesystem;
 
 class SessionStorage {
  public:
@@ -17,7 +21,6 @@ class SessionStorage {
 
   static void Save(const Session& session, const std::string& name) {
     // TODO: name validation
-    namespace fs = std::filesystem;
 
     fs::path dir_path{"../sessions"};
 
@@ -25,6 +28,8 @@ class SessionStorage {
       std::cout << "Creating sessions directory\n";
       fs::create_directory(dir_path);
     }
+
+    // TODO: check if file with matching name already exists
 
     std::string file_name = name + ".txt";
     fs::path file_path = dir_path / file_name;
@@ -45,10 +50,70 @@ class SessionStorage {
     }
   }
 
-  static Session& Load(const std::string& file_path) {
-    // check for sessions folder
-    // if it doesn't exist make it
-    // look for file
+  static Session Load(const std::string& file_name) {
+    const fs::path dir_path = "../sessions";
+
+    try {
+      if (!fs::is_directory(dir_path)) {
+        std::error_code ec =
+            std::make_error_code(std::errc::no_such_file_or_directory);
+        throw fs::filesystem_error("Sessions folder does not exist", dir_path,
+                                   ec);
+      }
+
+      auto directory_iterator = fs::directory_iterator(dir_path);
+      auto end_iterator = fs::end(directory_iterator);
+
+      auto found = std::find_if(directory_iterator, end_iterator,
+                                [&file_name](const auto& entry) {
+                                  return entry.path().stem() == file_name;
+                                });
+
+      if (found != end_iterator) {
+        std::cout << "File found!\n";
+
+        fs::path file_path = dir_path / (file_name + ".txt");
+
+        std::string line;
+        std::ifstream file(file_path);
+
+        if (file.is_open()) {
+          std::vector<Lap> laps;
+          std::vector<std::string> parts;
+
+          while (std::getline(file, line)) {
+            const std::string lap_str = "Lap ";
+            std::size_t pos = line.find(lap_str);
+
+            if (pos != std::string::npos) {
+              using Milliseconds = std::chrono::milliseconds;
+
+              auto string_parts = StringUtils::Explode(line, ": ");
+              const std::string& time_string = string_parts[1];
+              const size_t colon_pos = time_string.find(':');
+
+              int index = std::stoi(line.substr(lap_str.length(), colon_pos));
+
+              Milliseconds total_time_elapsed =
+                  StringUtils::GetMillisecondsFromString(time_string);
+
+              laps.emplace_back(index, total_time_elapsed);
+            }
+          }
+
+          file.close();
+
+          Session loaded_session(laps);
+          return loaded_session;
+        } else {
+          std::cerr << "Unable to open file\n";
+        }
+      } else {
+        std::cout << "No file found\n";
+      }
+    } catch (const fs::filesystem_error& e) {
+      std::cerr << "Caught filesystem_error: " << e.what() << std::endl;
+    }
   }
 };
 

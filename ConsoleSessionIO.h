@@ -19,7 +19,7 @@ struct ConsoleSessionIO {
 
   static std::string PromptForLoadPath() {
     std::string input;
-    std::cout << "Enter session name...\n";
+    std::cout << "Enter session name: \n";
     std::cin >> input;
     return input;
   }

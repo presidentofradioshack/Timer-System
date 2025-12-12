@@ -17,6 +17,8 @@ class Session {
     std::cout << "Creating session!\n";
   }
 
+  Session(std::vector<Lap> laps) : laps{laps} {}
+
   void UpdateLastUpdatedTime() {
     last_updated_on_ = std::chrono::steady_clock::now();
   }
@@ -38,6 +40,8 @@ class Session {
   }
 
   void ClearLaps();
+
+  void LoadLaps(std::vector<Lap>& loaded);
 
  private:
   std::string name;

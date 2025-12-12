@@ -20,4 +20,5 @@ add_executable(timer_system main.cpp
         TerminalRenderer.h
         SessionStorage.cpp
         SessionStorage.h
-        ConsoleSessionIO.h)
+        ConsoleSessionIO.h
+        Utils/StringUtils.h)

@@ -7,6 +7,7 @@
 #include "StopWatch.h"
 #include "TerminalInput.h"
 #include "TerminalRenderer.h"
+#include "Utils/StringUtils.h"
 
 int main() {
   StopWatch stopwatch;
@@ -26,6 +27,16 @@ int main() {
 
       running = false;
       continue;
+    }
+
+    if (e.type == EventType::LOAD) {
+      const std::string file_name = ConsoleSessionIO::PromptForLoadPath();
+      const Session session = SessionStorage::Load(file_name);
+
+      std::cout << "Session loaded successfully!\n";
+      session.DisplayLapInfo();
+
+      stopwatch.LoadSession(session);
     }
 
     if (e.type != EventType::NONE) {

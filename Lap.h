@@ -18,6 +18,9 @@ class Lap {
  public:
   Lap(int index) : index_{index} { std::cout << "Starting new lap\n"; }
 
+  Lap(int index, Milliseconds time_elapsed)
+      : index_{index}, total_time_elapsed_{time_elapsed} {}
+
   void Start();
 
   void Stop();

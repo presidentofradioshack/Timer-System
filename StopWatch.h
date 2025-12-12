@@ -30,7 +30,7 @@ class StopWatch {
     return current_session_;
   }
 
-  void LoadSession();
+  void LoadSession(const Session& session) { current_session_ = session; }
 
  private:
   std::vector<Session*> sessions_;
