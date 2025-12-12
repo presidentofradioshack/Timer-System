@@ -11,7 +11,7 @@
 class TerminalInput : public InputSource {
  public:
   Event NextEvent() override {
-    std::cout << "[s]tart, s[t]op, [r]eset, [l]ap, [q]uit > ";
+    std::cout << "[s]tart, s[t]op, [r]eset, [l]ap, [o]pen, [q]uit > ";
 
     std::string line;
 
@@ -38,6 +38,9 @@ class TerminalInput : public InputSource {
         break;
       case 'q':
         return Event{EventType::QUIT};
+        break;
+      case 'o':
+        return Event{EventType::LOAD};
         break;
       default:
         return Event{EventType::NONE};

@@ -41,6 +41,15 @@ void StopWatch::HandleEvent(const Event& e) {
       Reset();
       break;
 
+    case EventType::LOAD:
+      if (current_state_ != State::STOPPED) {
+        std::cout << "Please stop the timer before attempting to load an "
+                     "existing session\n";
+        return;
+      }
+
+      LoadSession();
+
     default:
       break;
   }
@@ -89,3 +98,5 @@ void StopWatch::Reset() {
 
   current_state_ = State::STOPPED;
 }
+
+void StopWatch::LoadSession() {}

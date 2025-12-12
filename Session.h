@@ -21,13 +21,16 @@ class Session {
     last_updated_on_ = std::chrono::steady_clock::now();
   }
 
+  [[nodiscard]]
+  std::vector<Lap> GetLaps() const {
+    return laps;
+  }
+
   Lap* GetCurrentLap();
 
   void DisplayLapInfo() const;
 
   Lap* AddLap();
-
-  void ResetLap();
 
   [[nodiscard]]
   std::size_t GetLapCount() const {

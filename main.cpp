@@ -1,7 +1,9 @@
 #include <iostream>
 
+#include "ConsoleSessionIO.h"
 #include "Event.h"
 #include "Session.h"
+#include "SessionStorage.h"
 #include "StopWatch.h"
 #include "TerminalInput.h"
 #include "TerminalRenderer.h"
@@ -19,6 +21,9 @@ int main() {
     Event e = terminal_input.NextEvent();
 
     if (e.type == EventType::QUIT) {
+      SessionStorage::Save(stopwatch.GetCurrentSession(),
+                           ConsoleSessionIO::PromptForFileName());
+
       running = false;
       continue;
     }

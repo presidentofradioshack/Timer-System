@@ -13,9 +13,11 @@ add_executable(timer_system main.cpp
         Event.h
         InputSource.cpp
         InputSource.h
-        TerminalInput.cpp
         TerminalInput.h
         Renderer.cpp
         Renderer.h
         TerminalRenderer.cpp
-        TerminalRenderer.h)
+        TerminalRenderer.h
+        SessionStorage.cpp
+        SessionStorage.h
+        ConsoleSessionIO.h)

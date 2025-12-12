@@ -25,6 +25,13 @@ class StopWatch {
 
   void NewLap();
 
+  [[nodiscard]]
+  const Session& GetCurrentSession() const {
+    return current_session_;
+  }
+
+  void LoadSession();
+
  private:
   std::vector<Session*> sessions_;
   Session current_session_;
