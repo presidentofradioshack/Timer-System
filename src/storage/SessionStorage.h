@@ -11,8 +11,8 @@
 #include <iostream>
 #include <system_error>
 
-#include "Session.h"
-#include "Utils/StringUtils.h"
+#include "../core/Session.h"
+#include "../utils/StringUtils.h"
 namespace fs = std::filesystem;
 
 class SessionStorage {
@@ -103,6 +103,7 @@ class SessionStorage {
 
           file.close();
 
+          std::cout << "Session loaded successfully!\n";
           Session loaded_session(laps);
           return loaded_session;
         } else {

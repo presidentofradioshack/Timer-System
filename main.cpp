@@ -1,13 +1,12 @@
 #include <iostream>
 
-#include "ConsoleSessionIO.h"
-#include "Event.h"
-#include "Session.h"
-#include "SessionStorage.h"
-#include "StopWatch.h"
-#include "TerminalInput.h"
-#include "TerminalRenderer.h"
-#include "Utils/StringUtils.h"
+#include "src/core/Session.h"
+#include "src/core/StopWatch.h"
+#include "src/events/Event.h"
+#include "src/storage/SessionStorage.h"
+#include "src/ui/terminal/ConsoleSessionIO.h"
+#include "src/ui/terminal/TerminalInput.h"
+#include "src/ui/terminal/TerminalRenderer.h"
 
 int main() {
   StopWatch stopwatch;
@@ -33,7 +32,6 @@ int main() {
       const std::string file_name = ConsoleSessionIO::PromptForLoadPath();
       const Session session = SessionStorage::Load(file_name);
 
-      std::cout << "Session loaded successfully!\n";
       session.DisplayLapInfo();
 
       stopwatch.LoadSession(session);

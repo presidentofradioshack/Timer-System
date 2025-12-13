@@ -6,7 +6,7 @@
 #define TIMER_SYSTEM_STOPWATCH_H
 #include <iostream>
 
-#include "Event.h"
+#include "../events/Event.h"
 #include "Session.h"
 
 enum State { STOPPED, RUNNING };

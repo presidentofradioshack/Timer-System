@@ -6,7 +6,7 @@
 #define TIMER_SYSTEM_TERMINALINPUT_H
 #include <iostream>
 
-#include "InputSource.h"
+#include "../InputSource.h"
 
 class TerminalInput : public InputSource {
  public:

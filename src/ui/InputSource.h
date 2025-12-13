@@ -5,7 +5,7 @@
 #ifndef TIMER_SYSTEM_INPUTSOURCE_H
 #define TIMER_SYSTEM_INPUTSOURCE_H
 
-#include "Event.h"
+#include "../events/Event.h"
 
 class InputSource {
  public:

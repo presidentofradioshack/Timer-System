@@ -1,6 +1,6 @@
 #include "StopWatch.h"
 
-#include "Event.h"
+#include "../events/Event.h"
 #include "Lap.h"
 
 void StopWatch::HandleEvent(const Event& e) {

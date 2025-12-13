@@ -6,8 +6,8 @@
 #define TIMER_SYSTEM_TERMINALRENDERER_H
 #include <iostream>
 
-#include "Renderer.h"
-#include "StopWatch.h"
+#include "../../../src/core/StopWatch.h"
+#include "../Renderer.h"
 
 class TerminalRenderer final : public Renderer {
  public:

@@ -5,7 +5,7 @@
 #ifndef TIMER_SYSTEM_RENDERER_H
 #define TIMER_SYSTEM_RENDERER_H
 
-#include "StopWatch.h"
+#include "../../src/core/StopWatch.h"
 
 class Renderer {
  public:
