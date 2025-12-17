@@ -10,7 +10,7 @@
 class Renderer {
  public:
   virtual ~Renderer() = default;
-  virtual void Render(const StopWatch& sw) = 0;
+  virtual void Render(StopWatch& sw) = 0;
 };
 
 #endif  // TIMER_SYSTEM_RENDERER_H

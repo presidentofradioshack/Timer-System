@@ -8,7 +8,7 @@
 
 #include "../InputSource.h"
 
-class TerminalInput : public InputSource {
+struct TerminalInput : public InputSource {
  public:
   Event NextEvent() override {
     std::cout << "[s]tart, s[t]op, [r]eset, [l]ap, [o]pen, [q]uit > ";

@@ -11,7 +11,7 @@
 
 class TerminalRenderer final : public Renderer {
  public:
-  void Render(const StopWatch& stopwatch) override {
+  void Render(StopWatch& stopwatch) override {
     std::cout << "Terminal rendering\n";
   }
 };
